@@ -100,6 +100,19 @@
     70% { transform: scale(0.9); }
     100% { transform: scale(1); }
   }
+  @keyframes ring {
+    0% { transform: rotate(0); }
+    10% { transform: rotate(-15deg); }
+    20% { transform: rotate(15deg); }
+    30% { transform: rotate(-15deg); }
+    40% { transform: rotate(15deg); }
+    50% { transform: rotate(-10deg); }
+    60% { transform: rotate(10deg); }
+    70% { transform: rotate(-5deg); }
+    80% { transform: rotate(5deg); }
+    90% { transform: rotate(-2deg); }
+    100% { transform: rotate(0); }
+  }
   @keyframes laserMove{
     0%{left:0%;}
     50%{left:calc(100% - 8px);}
@@ -554,40 +567,133 @@
   .gcard .meta h4{font-family:var(--ff-body);font-weight:800;font-size:15px;margin-bottom:4px;}
   .gcard .meta span{font-size:13px;color:var(--concrete);}
 
-  /* ===== WORKS ===== */
-  .works-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
-  .work-item{
-    background:var(--paper-panel);
-    border:1px solid var(--line);
-    padding:30px 26px;
-    text-align:center;
-    transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor:default;
-    position:relative;
-    overflow:hidden;
+  /* ===== WORKS (НАШИ РАБОТЫ) ===== */
+  .works-section {
+    padding: 50px 0 70px;
+    background: var(--paper);
   }
-  .work-item::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,106,26,0.05), transparent 70%);
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+  }
+  .work-card {
+    background: var(--paper-panel);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     opacity: 0;
-    transition: opacity 0.4s ease;
+    animation: fadeInUp 0.6s ease forwards;
   }
-  .work-item:hover::before { opacity: 1; }
-  .work-item:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 16px 40px -12px rgba(0,0,0,0.2);}
-  .work-item .icon{
-    font-size:40px;
-    margin-bottom:14px;
-    display:block;
-    transition:all .3s ease;
+  .work-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
   }
-  .work-item:hover .icon{transform:scale(1.2) rotate(-10deg);}
-  .work-item h3{font-family:var(--ff-body);font-weight:800;text-transform:none;font-size:17px;margin-bottom:8px;}
-  .work-item p{font-size:14.5px;color:var(--concrete);}
+  .work-card .image-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    background: var(--concrete-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .work-card .image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .work-card:hover .image-wrap img {
+    transform: scale(1.05);
+  }
+  .work-card .image-wrap .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--orange);
+    color: #fff;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    font-family: var(--ff-display);
+    letter-spacing: 0.05em;
+    z-index: 10;
+  }
+  .work-card .image-wrap .badge.area {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    right: auto;
+    left: 10px;
+  }
+  .work-card .content {
+    padding: 18px 20px 22px;
+  }
+  .work-card .content h3 {
+    font-family: var(--ff-display);
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+  .work-card .content .meta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--concrete-light);
+    margin-bottom: 8px;
+  }
+  .work-card .content .meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .work-card .content .description {
+    color: var(--concrete);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .works-empty {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--concrete-light);
+    grid-column: 1 / -1;
+  }
+  .works-empty .icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+  .works-empty h3 {
+    font-family: var(--ff-display);
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .works-loading {
+    text-align: center;
+    padding: 40px 0;
+    grid-column: 1 / -1;
+  }
+  .works-loading .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--line);
+    border-top-color: var(--orange);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .works-view-all {
+    text-align: center;
+    margin-top: 30px;
+  }
 
   /* ===== COUNTER ===== */
   .counter-section {
@@ -648,8 +754,91 @@
     border:1px solid rgba(255,255,255,.25);padding:10px 18px;font-size:13.5px;
     text-decoration:none;color:#fff;display:inline-flex;align-items:center;gap:8px;
     transition:all .3s;
+    border-radius:2px;
   }
   .social-row a:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px) scale(1.05);}
+  .social-row .social-call {
+    background: linear-gradient(135deg, #FF6A1A, #E85D0E);
+    border: none;
+    padding: 10px 22px;
+    font-size: 13.5px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .3s;
+    border-radius: 4px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(255, 106, 26, 0.3);
+  }
+  .social-row .social-call:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(255, 106, 26, 0.5);
+    background: linear-gradient(135deg, #FF7A2A, #E85D0E);
+  }
+  .social-row .social-call .call-icon {
+    display: inline-block;
+    animation: ring 2s ease-in-out infinite;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .social-row .social-max {
+    background: linear-gradient(135deg, #6366F1, #8B5CF6, #A855F7);
+    border: none;
+    padding: 10px 22px;
+    font-size: 13.5px;
+    text-decoration: none;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .3s;
+    border-radius: 4px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  }
+  .social-row .social-max:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(139, 92, 246, 0.5);
+  }
+  .social-row .social-max img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .social-row .social-wa {
+    border: 1px solid rgba(255,255,255,.25);
+    padding: 10px 18px;
+    font-size: 13.5px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .3s;
+    border-radius: 2px;
+  }
+  .social-row .social-wa:hover {
+    border-color: #25D366;
+    color: #25D366;
+    transform: translateY(-2px) scale(1.05);
+  }
+  .social-row .social-tg {
+    border: 1px solid rgba(255,255,255,.25);
+    padding: 10px 18px;
+    font-size: 13.5px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .3s;
+    border-radius: 2px;
+  }
+  .social-row .social-tg:hover {
+    border-color: #229ED9;
+    color: #229ED9;
+    transform: translateY(-2px) scale(1.05);
+  }
 
   form.lead-form{background:#23262B;padding:32px;border:1px solid rgba(255,255,255,.08);border-radius:4px;transition:all .3s;}
   form.lead-form:hover{box-shadow:0 8px 30px rgba(0,0,0,0.3);}
@@ -704,6 +893,7 @@
     box-shadow:0 6px 16px rgba(0,0,0,.25);
     transition:all .2s;
     position:relative;
+    overflow:hidden;
   }
   .fab::after {
     content: attr(data-label);
@@ -723,7 +913,37 @@
   .fab:hover{transform:scale(1.15) rotate(5deg);box-shadow:0 8px 24px rgba(0,0,0,.35);}
   .fab.wa{background:#25D366;}
   .fab.tg{background:#229ED9;}
-  .fab.phone{background:var(--orange);}
+  .fab.max {
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: transparent;
+    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+  }
+  .fab.max img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .fab.max:hover img {
+    transform: scale(1.1);
+  }
+  .fab.max:hover {
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.6);
+    transform: scale(1.1);
+  }
+  .fab.phone{
+    background: linear-gradient(135deg, #FF6A1A, #E85D0E);
+    box-shadow: 0 6px 16px rgba(255, 106, 26, 0.4);
+    font-size: 20px;
+  }
+  .fab.phone:hover {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 8px 24px rgba(255, 106, 26, 0.6);
+  }
 
   /* ===== BACK TO TOP ===== */
   .back-to-top {
@@ -801,6 +1021,7 @@
     .hero-stats { gap: 20px; }
     .hero-stats div b { font-size: 22px; }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .works-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media(max-width: 768px) {
@@ -837,8 +1058,10 @@
     .gcard .meta { padding: 12px 14px; }
     .gcard .meta h4 { font-size: 14px; }
     .gcard .meta span { font-size: 12px; }
-    .works-grid { grid-template-columns: 1fr; gap: 16px; }
-    .work-item { padding: 24px 20px; }
+    .works-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .work-card .image-wrap { height: 180px; }
+    .work-card .content { padding: 14px 16px 18px; }
+    .work-card .content h3 { font-size: 16px; }
     .contact-grid { grid-template-columns: 1fr; gap: 30px; }
     .contact-info .row { flex-wrap: wrap; gap: 8px; }
     .contact-info .row b { min-width: auto; width: 100%; }
@@ -854,6 +1077,7 @@
     .sticky-call { padding: 12px; font-size: 13px; }
     .fab-col { right: 12px; bottom: 80px; gap: 8px; }
     .fab { width: 44px; height: 44px; font-size: 14px; }
+    .fab.max img { width: 44px; height: 44px; }
     .fab::after { display: none; }
     .back-to-top { bottom: 80px; right: 12px; width: 40px; height: 40px; font-size: 18px; }
   }
@@ -865,6 +1089,8 @@
     .hero-stats div b { font-size: 18px; }
     .adv-grid { grid-template-columns: 1fr; }
     .gallery-grid { grid-template-columns: 1fr; }
+    .works-grid { grid-template-columns: 1fr; }
+    .work-card .image-wrap { height: 200px; }
     .counter-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
     .counter-item .number { font-size: 28px; }
     .btn { font-size: 13px; padding: 12px 20px; }
@@ -882,6 +1108,7 @@
     .field input, .field textarea { padding: 10px 12px; font-size: 13px; }
     .fab-col { right: 8px; bottom: 75px; gap: 6px; }
     .fab { width: 38px; height: 38px; font-size: 12px; }
+    .fab.max img { width: 38px; height: 38px; }
     .fab::after { display: none; }
     .back-to-top { bottom: 75px; right: 8px; width: 36px; height: 36px; font-size: 16px; }
   }
@@ -912,7 +1139,7 @@
       <li><a href="#advantages">Преимущества</a></li>
       <li><a href="#prices">Цены</a></li>
       <li><a href="#process">Этапы работ</a></li>
-      <li><a href="#gallery">Примеры</a></li>
+      <li><a href="#works">Наши работы</a></li>
       <li><a href="#faq">Вопросы</a></li>
     </ul>
     <div class="nav-cta">
@@ -936,10 +1163,10 @@
         <a href="tel:+79192822197" class="btn btn-phone" style="border-color:rgba(255,255,255,.3);">📞 Позвонить сейчас</a>
       </div>
       <div class="hero-stats">
-        <div class="stat-item"><b>800 ₽</b><span>под ключ, м²</span></div>
+        <div class="stat-item"><b>850 ₽</b><span>под ключ, м²</span></div>
         <div class="stat-item"><b>450 ₽</b><span>работа, м²</span></div>
-        <div class="stat-item"><b>0 мм</b><span>отклонение по уровню</span></div>
-        <div class="stat-item"><b>1–2 дня</b><span>на объект</span></div>
+        <div class="stat-item"><b>+-2 мм</b><span>отклонение по уровню</span></div>
+        <div class="stat-item"><b>Время</b><span>на объект обговаривается</span></div>
       </div>
     </div>
     <div class="level-card">
@@ -1057,70 +1284,24 @@
   </div>
 </section>
 
-<section class="panel-alt">
-  <div class="wrap why-grid">
-    <div>
-      <div class="section-head" style="margin-bottom:30px;">
-        <div class="eyebrow animate-on-scroll">Почему выбирают нас</div>
-        <h2 class="animate-on-scroll">Строим отношения так же аккуратно, как стяжку</h2>
-      </div>
-      <div class="why-list">
-        <div class="row animate-on-scroll delay-1"><div class="mark">✓</div><div><h3>Опыт более 8 лет</h3><p>Сотни объектов в Белгородском районе — от квартир до складов.</p></div></div>
-        <div class="row animate-on-scroll delay-2"><div class="mark">✓</div><div><h3>Работаем по договору</h3><p>Прописываем сроки, объёмы и цену до начала работ — без сюрпризов в смете.</p></div></div>
-        <div class="row animate-on-scroll delay-3"><div class="mark">✓</div><div><h3>Гарантия на стяжку</h3><p>Даём письменную гарантию и остаёмся на связи после сдачи объекта.</p></div></div>
-        <div class="row animate-on-scroll delay-4"><div class="mark">✓</div><div><h3>Свои бригады, без субподряда</h3><p>На объект приезжает наша постоянная команда, а не случайные подрядчики.</p></div></div>
-      </div>
-    </div>
-    <div class="trust-panel animate-on-scroll delay-2">
-      <h3>Объект в цифрах</h3>
-      <div class="trust-row"><span>Средний срок заливки 100 м²</span><b>1 день</b></div>
-      <div class="trust-row"><span>Готовность к финишу</span><b>от 3–5 дней</b></div>
-      <div class="trust-row"><span>Толщина слоя</span><b>от 30 мм</b></div>
-      <div class="trust-row"><span>Гарантия</span><b>2 года</b></div>
-      <div class="trust-row"><span>Минимальный заказ</span><b>75 000 ₽</b></div>
-      <div class="trust-row"><span>Телефон</span><b><a href="tel:+79192822197" style="color:var(--orange);text-decoration:none;">+7 (919) 282-21-97</a></b></div>
-    </div>
-  </div>
-</section>
-
-<section id="gallery">
-  <div class="wrap">
-    <div class="section-head animate-on-scroll">
-      <div class="eyebrow">Примеры работ</div>
-      <h2>До и после</h2>
-      <p>Реальные объекты в Белгородском районе — фото добавим по вашему архиву перед публикацией.</p>
-    </div>
-    <div class="gallery-grid">
-      <div class="gcard animate-on-scroll delay-1"><div class="ba"><div class="before">До</div><div class="after">После</div></div><div class="meta"><h4>Квартира, 62 м²</h4><span>п. Северный, под ламинат</span></div></div>
-      <div class="gcard animate-on-scroll delay-2"><div class="ba"><div class="before">До</div><div class="after">После</div></div><div class="meta"><h4>Дом, 140 м²</h4><span>с. Никольское, под плитку</span></div></div>
-      <div class="gcard animate-on-scroll delay-3"><div class="ba"><div class="before">До</div><div class="after">После</div></div><div class="meta"><h4>Склад, 480 м²</h4><span>Белгородский район, под ПВХ-покрытие</span></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="panel-alt">
+<!-- ===== НАШИ РАБОТЫ ===== -->
+<section id="works" class="works-section panel-alt">
   <div class="wrap">
     <div class="section-head animate-on-scroll">
       <div class="eyebrow">Наши работы</div>
-      <h2>Что мы умеем делать</h2>
-      <p>Полусухая стяжка пола для любых помещений — от квартир до коммерческих объектов.</p>
+      <h2>Реальные объекты <em style="color:var(--orange);font-style:normal;">после работы</em></h2>
+      <p>Каждый проект — это ровный пол без трещин и усадки.</p>
     </div>
-    <div class="works-grid">
-      <div class="work-item animate-on-scroll delay-1">
-        <span class="icon">🏠</span>
-        <h3>Квартиры и дома</h3>
-        <p>Стяжка пола в новостройках и вторичном жилье под любое финишное покрытие.</p>
+    
+    <div class="works-grid" id="worksGrid">
+      <div class="works-loading" id="loadingIndicator">
+        <div class="spinner"></div>
+        <p>Загрузка работ...</p>
       </div>
-      <div class="work-item animate-on-scroll delay-2">
-        <span class="icon">🏢</span>
-        <h3>Коммерческие объекты</h3>
-        <p>Офисы, магазины, склады — стяжка выдерживает высокие нагрузки.</p>
-      </div>
-      <div class="work-item animate-on-scroll delay-3">
-        <span class="icon">🔧</span>
-        <h3>Ремонт и реставрация</h3>
-        <p>Восстановление и выравнивание старых полов без демонтажа.</p>
-      </div>
+    </div>
+    
+    <div class="works-view-all">
+      <a href="works.html" class="btn btn-primary">Смотреть все работы →</a>
     </div>
   </div>
 </section>
@@ -1173,9 +1354,14 @@
         <div class="row"><b>Режим работы</b><span>Пн–Сб, 8:00–19:00</span></div>
       </div>
       <div class="social-row">
-        <a href="https://wa.me/79192822197" target="_blank" rel="noopener">💬 WhatsApp</a>
-        <a href="https://t.me/styazhka31" target="_blank" rel="noopener">💬 Telegram</a>
-        <a href="tel:+79192822197">📞 Позвонить</a>
+        <a href="https://wa.me/79192822197" target="_blank" rel="noopener" class="social-wa">💬 WhatsApp</a>
+        <a href="https://t.me/styazhka31" target="_blank" rel="noopener" class="social-tg">💬 Telegram</a>
+        <a href="tel:+79192822197" class="social-call">
+          <span class="call-icon">📞</span> Позвонить
+        </a>
+        <a href="https://max.ru/u/f9LHodD0cOIu3Rwr9sLXuk_rmgKR-SPhem66IAhlnORdx5GpOtXTKEtmei8" target="_blank" rel="noopener" class="social-max">
+          <img src="max.jpg" alt="MAX"> MAX
+        </a>
       </div>
     </div>
     <form class="lead-form animate-on-scroll delay-2" id="leadForm">
@@ -1221,6 +1407,9 @@
   <a class="fab tg" href="https://t.me/styazhka31" target="_blank" rel="noopener" aria-label="Telegram" data-label="Telegram">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
   </a>
+  <a class="fab max" href="https://max.ru/u/f9LHodD0cOIu3Rwr9sLXuk_rmgKR-SPhem66IAhlnORdx5GpOtXTKEtmei8" target="_blank" rel="noopener" aria-label="MAX" data-label="MAX">
+    <img src="max.jpg" alt="MAX">
+  </a>
 </div>
 
 <!-- MODAL -->
@@ -1251,8 +1440,13 @@
   // ============================================================
   // ===== НАСТРОЙКА API =====
   // ============================================================
-  // ВАЖНО: Замените на ваш URL на PythonAnywhere
+  // ⚠️ ДЛЯ ЛОКАЛЬНОГО ТЕСТА:
+  //const API_URL = 'http://localhost:5000/lead';
+  //const WORKS_URL = 'http://localhost:5000/works';
+  
+  // ⚠️ ДЛЯ СЕРВЕРА (раскомментируй и закомментируй строки выше):
   const API_URL = 'https://Sasharazvali.pythonanywhere.com/lead';
+  const WORKS_URL = 'https://Sasharazvali.pythonanywhere.com/works';
   
   // ============================================================
   // ===== ОТПРАВКА ЗАЯВКИ =====
@@ -1268,6 +1462,92 @@
     } catch (error) {
       console.error('Ошибка отправки:', error);
       return null;
+    }
+  }
+
+  // ============================================================
+  // ===== ЗАГРУЗКА РАБОТ =====
+  // ============================================================
+  async function loadWorks() {
+    const grid = document.getElementById('worksGrid');
+    const loading = document.getElementById('loadingIndicator');
+    
+    try {
+      const response = await fetch(WORKS_URL);
+      const data = await response.json();
+      
+      console.log('📦 Загружено работ:', data.works ? data.works.length : 0);
+      
+      if (data.works && data.works.length > 0) {
+        // Берем последние 3 добавленные работы (сортируем по id - чем больше id, тем новее)
+        const sortedWorks = [...data.works].sort((a, b) => (b.id || 0) - (a.id || 0));
+        const works = sortedWorks.slice(0, 3);
+        
+        loading.style.display = 'none';
+        
+        grid.innerHTML = works.map((work, index) => {
+          // Берем первое фото из массива photos или используем photo/filename
+          let photoUrl = '';
+          if (work.photos && work.photos.length > 0) {
+            photoUrl = work.photos[0];
+          } else if (work.photo) {
+            photoUrl = work.photo;
+          } else if (work.filename) {
+            photoUrl = work.filename;
+          }
+          
+          // Определяем базовый URL для фото
+          const baseUrl = API_URL.replace('/lead', '');
+          
+          // Если фото начинается с /photos/ или /
+          if (photoUrl.startsWith('/photos/') || photoUrl.startsWith('/')) {
+            photoUrl = baseUrl + photoUrl;
+          }
+          // Если фото не начинается с http, добавляем базовый URL
+          else if (!photoUrl.startsWith('http') && photoUrl) {
+            photoUrl = baseUrl + '/photos/' + photoUrl;
+          }
+          
+          const areaText = work.area ? `${work.area} м²` : '';
+          
+          return `
+            <div class="work-card animate-on-scroll" style="animation-delay: ${(index * 0.15)}s">
+              <div class="image-wrap">
+                ${photoUrl ? `<img src="${photoUrl}" alt="${work.title || 'Работа'}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:40px;background:var(--concrete-light);\\'>🖼️</div><div style=\\'position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:#fff;padding:4px 12px;border-radius:4px;font-size:11px;z-index:10;\\'>Фото не загрузилось</div>'">` : `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:40px;background:var(--concrete-light);">🖼️</div>`}
+                ${areaText ? `<div class="badge area">📐 ${areaText}</div>` : ''}
+                <div class="badge">${work.category || 'Объект'}</div>
+              </div>
+              <div class="content">
+                <h3>${work.title || 'Без названия'}</h3>
+                ${work.description ? `<p class="description">${work.description}</p>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        document.querySelectorAll('.work-card').forEach(el => {
+          el.classList.add('visible');
+        });
+        
+      } else {
+        loading.innerHTML = `
+          <div style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--concrete-light);">
+            <div style="font-size:40px;margin-bottom:12px;">🖼️</div>
+            <h3 style="font-family:var(--ff-display);font-size:20px;color:var(--ink);">Работ пока нет</h3>
+            <p>Добавьте работы через Telegram или VK бота</p>
+          </div>
+        `;
+      }
+      
+    } catch (error) {
+      console.error('❌ Ошибка загрузки работ:', error);
+      loading.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:40px 0;color:#dc3545;">
+          <div style="font-size:40px;margin-bottom:12px;">⚠️</div>
+          <h3 style="font-family:var(--ff-display);font-size:20px;">Ошибка загрузки</h3>
+          <p>Попробуйте обновить страницу</p>
+        </div>
+      `;
     }
   }
 
@@ -1580,6 +1860,1891 @@
       sendLead(data).catch(() => {});
     }, 3000);
   })();
+
+  // ============================================================
+  // ===== ЗАГРУЗКА РАБОТ ПРИ СТАРТЕ =====
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', loadWorks);
+  
+  // ============================================================
+  // ===== АВТООБНОВЛЕНИЕ РАБОТ КАЖДЫЕ 30 СЕКУНД =====
+  // ============================================================
+  setInterval(loadWorks, 30000);
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Полусухая стяжка пола в Белгородском районе — под ключ от 450 ₽/м²</title>
+<meta name="description" content="Полусухая стяжка пола по немецкой технологии в Белгородском районе. Ровный пол под лазерным нивелиром, без трещин и усадки. Работаем по договору, цена от 450 ₽/м².">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1B1E22;
+    --concrete:#4B4F56;
+    --concrete-light:#8A8F97;
+    --paper:#F1EFEA;
+    --paper-panel:#FFFFFF;
+    --orange:#FF6A1A;
+    --orange-dark:#D6540E;
+    --blue:#2C6CB0;
+    --line:#DAD6CE;
+    --success:#3C8A5C;
+    --radius:2px;
+    --ff-display:'Oswald',sans-serif;
+    --ff-body:'Manrope',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--ff-body);
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  h1,h2,h3{font-family:var(--ff-display);text-transform:uppercase;letter-spacing:0.01em;line-height:1.08;}
+
+  /* ===== АНИМАЦИИ ===== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes scaleInRotate {
+    from { opacity: 0; transform: scale(0.8) rotate(-5deg); }
+    to { opacity: 1; transform: scale(1) rotate(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,106,26,0.2); }
+    50% { box-shadow: 0 0 40px rgba(255,106,26,0.6); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,106,26,0.2); }
+    50% { box-shadow: 0 0 40px rgba(255,106,26,0.5); }
+  }
+  @keyframes countUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { opacity: 1; transform: scale(1.05); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
+  @keyframes ring {
+    0% { transform: rotate(0); }
+    10% { transform: rotate(-15deg); }
+    20% { transform: rotate(15deg); }
+    30% { transform: rotate(-15deg); }
+    40% { transform: rotate(15deg); }
+    50% { transform: rotate(-10deg); }
+    60% { transform: rotate(10deg); }
+    70% { transform: rotate(-5deg); }
+    80% { transform: rotate(5deg); }
+    90% { transform: rotate(-2deg); }
+    100% { transform: rotate(0); }
+  }
+  @keyframes laserMove{
+    0%{left:0%;}
+    50%{left:calc(100% - 8px);}
+    100%{left:0%;}
+  }
+  @keyframes bubbleSettle{
+    0%{transform:translateX(2px);}
+    40%{transform:translateX(48px);}
+    70%{transform:translateX(50px);}
+    100%{transform:translateX(50px);}
+  }
+  @keyframes livePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+  @keyframes bounceUp {
+    0% { transform: translateY(0); opacity: 1; }
+    50% { transform: translateY(-10px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0.5; }
+  }
+  @keyframes particleRise {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-200px) scale(0); }
+  }
+  
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .animate-on-scroll.delay-1 { transition-delay: 0.1s; }
+  .animate-on-scroll.delay-2 { transition-delay: 0.2s; }
+  .animate-on-scroll.delay-3 { transition-delay: 0.3s; }
+  .animate-on-scroll.delay-4 { transition-delay: 0.4s; }
+  .animate-on-scroll.delay-5 { transition-delay: 0.5s; }
+  .animate-on-scroll.delay-6 { transition-delay: 0.6s; }
+
+  /* ===== ЛОГОТИП ===== */
+  .logo {
+    font-family: var(--ff-display);
+    font-size: 19px;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+  }
+  .logo:hover { transform: scale(1.02); }
+  .logo:active { transform: scale(0.95); }
+  .logo span { color: var(--orange); }
+  .logo .dot {
+    display: inline-block;
+    animation: glowPulse 2s ease-in-out infinite;
+    width: 8px;
+    height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+  }
+  .logo .logo-text { transition: all 0.3s ease; }
+  .logo .logo-text::after {
+    content: '▲';
+    display: inline-block;
+    font-size: 10px;
+    margin-left: 4px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    color: var(--orange);
+  }
+  .logo:hover .logo-text::after {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+  .logo.clicked .logo-text::after {
+    animation: bounceUp 0.6s ease;
+  }
+
+  /* ===== ПАРТИКЛЫ ===== */
+  .particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--orange);
+    border-radius: 50%;
+    animation: particleRise 3s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* ===== ЖИВАЯ ТОЧКА ===== */
+  .live-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #00ff88;
+    border-radius: 50%;
+    animation: livePulse 1.5s ease-in-out infinite;
+    margin-right: 6px;
+  }
+
+  .eyebrow{
+    font-family:var(--ff-display);
+    font-size:13px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--orange-dark);
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{content:"";width:26px;height:2px;background:var(--orange);display:inline-block;}
+  
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--ff-display);
+    font-size:15px;letter-spacing:.03em;text-transform:uppercase;
+    padding:16px 30px;border-radius:var(--radius);border:2px solid transparent;
+    cursor:pointer;transition:all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration:none;
+    position:relative;
+    overflow:hidden;
+  }
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.15), transparent);
+    transform: rotate(45deg) translateX(-100%);
+    transition: transform 0.6s;
+  }
+  .btn:hover::after { transform: rotate(45deg) translateX(100%); }
+  .btn-primary{background:var(--orange);color:#1B1000;}
+  .btn-primary:hover{background:var(--orange-dark);transform:translateY(-2px) scale(1.02);}
+  .btn-outline{background:transparent;border-color:var(--ink);color:var(--ink);}
+  .btn-outline:hover{background:var(--ink);color:var(--paper);}
+  .btn-outline-light{background:transparent;border-color:rgba(255,255,255,.5);color:#fff;}
+  .btn-outline-light:hover{background:#fff;color:var(--ink);}
+  .btn-phone{background:#25D366;color:#fff;border-color:#25D366;}
+  .btn-phone:hover{background:#1da851;border-color:#1da851;transform:translateY(-2px) scale(1.02);}
+  .btn-pulse { animation: pulse 2s ease-in-out infinite; }
+  .btn-block { width: 100%; justify-content: center; }
+
+  /* ===== LASER LINE ===== */
+  .laser-rule{
+    position:relative;height:2px;width:100%;
+    background:linear-gradient(90deg, transparent, var(--orange) 15%, var(--orange) 85%, transparent);
+    overflow:visible;
+  }
+  .laser-rule::after{
+    content:"";position:absolute;top:-3px;left:0;width:8px;height:8px;border-radius:50%;
+    background:var(--orange);box-shadow:0 0 10px 3px rgba(255,106,26,.7);
+    animation:laserMove 4.5s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .laser-rule::after{animation:none;left:0;}
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky;top:0;z-index:100;
+    background:rgba(27,30,34,.96);backdrop-filter:blur(6px);
+    color:#fff;
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px;}
+  .nav-links{display:flex;gap:28px;font-size:14px;list-style:none;}
+  .nav-links a{text-decoration:none;opacity:.8;transition:all .3s;position:relative;}
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--orange);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after {width: 100%;}
+  .nav-links a:hover{opacity:1;color:var(--orange);}
+  .nav-phone{font-family:var(--ff-display);font-size:17px;letter-spacing:.02em;white-space:nowrap;cursor:pointer;transition:color .3s;}
+  .nav-phone:hover{color:var(--orange);}
+  .nav-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;
+    background:var(--ink);
+    color:#fff;
+    padding:76px 0 0;
+    overflow:hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 60%;
+    height: 200%;
+    background: radial-gradient(ellipse, rgba(255,106,26,0.05) 0%, transparent 70%);
+    animation: float 20s ease-in-out infinite;
+  }
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;
+    padding-bottom:60px;
+    position:relative;z-index:1;
+  }
+  .hero h1{
+    font-size:clamp(34px,5vw,58px);
+    margin-bottom:20px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--orange);
+    position:relative;
+    display:inline-block;
+  }
+  .hero h1 em::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--orange);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .hero p.lead{
+    font-size:18px;color:#C9CDD3;max-width:520px;margin-bottom:30px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px;}
+  .hero-actions .btn-wrap{display:flex;gap:10px;flex-wrap:wrap;}
+  .hero-stats{display:flex;gap:30px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.15);padding-top:22px;}
+  .hero-stats div b{display:block;font-family:var(--ff-display);font-size:26px;color:var(--orange);}
+  .hero-stats div span{font-size:13px;color:#9AA0A8;}
+  .hero-stats .stat-item {
+    animation: countUp 0.6s ease-out forwards;
+    opacity: 0;
+  }
+  .hero-stats .stat-item:nth-child(1) { animation-delay: 0.2s; }
+  .hero-stats .stat-item:nth-child(2) { animation-delay: 0.4s; }
+  .hero-stats .stat-item:nth-child(3) { animation-delay: 0.6s; }
+  .hero-stats .stat-item:nth-child(4) { animation-delay: 0.8s; }
+
+  .level-card{
+    background:linear-gradient(160deg,#23272C,#191C1F);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius);
+    padding:26px;
+    animation: scaleIn 1s ease-out;
+  }
+  .level-card .cap{font-family:var(--ff-display);font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#9AA0A8;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;}
+  .level-card .cap b{color:var(--orange);display:flex;align-items:center;gap:6px;}
+  .level-card .cap .live-dot { display:inline-block; width:8px; height:8px; background:#00ff88; border-radius:50%; animation:livePulse 1.5s ease-in-out infinite; }
+  .floor-viz{position:relative;height:150px;border-radius:var(--radius);overflow:hidden;background:
+      repeating-linear-gradient(90deg, #34383E 0 2px, transparent 2px 34px);
+    background-color:#2A2E33;}
+  .floor-viz .plane{
+    position:absolute;left:0;right:0;bottom:0;height:70%;
+    background:linear-gradient(180deg,#3E434A,#2A2E33);
+    border-top:2px solid var(--orange);
+  }
+  .floor-viz .bubble{
+    position:absolute;top:14px;left:50%;transform:translateX(-50%);
+    width:120px;height:20px;border-radius:20px;background:rgba(0,0,0,.35);
+    display:flex;align-items:center;padding:2px;
+  }
+  .floor-viz .bubble i{
+    width:16px;height:16px;border-radius:50%;background:var(--orange);
+    box-shadow:0 0 8px 2px rgba(255,106,26,.6);
+    animation:bubbleSettle 3s ease-in-out infinite;
+  }
+  .level-card .rows{display:flex;justify-content:space-between;margin-top:16px;font-size:13px;color:#9AA0A8;}
+  .level-card .rows b{color:#fff;display:block;font-family:var(--ff-display);font-size:20px;}
+
+  /* ===== SECTIONS ===== */
+  section{padding:84px 0;}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head h2{font-size:clamp(26px,3.4vw,38px);}
+  .section-head p{color:var(--concrete);font-size:16px;margin-top:14px;}
+  .panel-alt{background:var(--paper-panel);}
+
+  /* ===== ADVANTAGES ===== */
+  .adv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);}
+  .adv-item{
+    background:var(--paper-panel);
+    padding:30px 26px;
+    transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor:default;
+    position:relative;
+    overflow:hidden;
+  }
+  .adv-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--orange);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .adv-item:hover::before { transform: scaleX(1); }
+  .adv-item:hover{transform:translateY(-4px);box-shadow:0 8px 25px rgba(0,0,0,0.08);z-index:1;}
+  .adv-item .num{font-family:var(--ff-display);font-size:13px;color:var(--concrete-light);margin-bottom:14px;transition:color .3s;}
+  .adv-item:hover .num{color:var(--orange);}
+  .adv-item h3{font-family:var(--ff-body);font-weight:800;text-transform:none;font-size:17px;margin-bottom:8px;}
+  .adv-item p{font-size:14.5px;color:var(--concrete);}
+
+  /* ===== PRICING ===== */
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+  .price-card{
+    border:1px solid var(--line);background:var(--paper-panel);
+    padding:34px;position:relative;
+    transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display:flex;flex-direction:column;
+    overflow:hidden;
+  }
+  .price-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 0% 0%, rgba(255,106,26,0.03), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+  }
+  .price-card:hover::after { opacity: 1; }
+  .price-card:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.1);}
+  .price-card.featured{border-color:var(--orange);box-shadow:0 18px 40px -20px rgba(255,106,26,0.3);}
+  .price-card.featured:hover{box-shadow:0 18px 40px -10px rgba(255,106,26,0.4);}
+  .price-card .tag{
+    position:absolute;top:0;right:0;background:var(--orange);color:#1B1000;
+    font-family:var(--ff-display);font-size:12px;letter-spacing:.08em;text-transform:uppercase;
+    padding:6px 14px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  .price-card h3{font-family:var(--ff-body);font-weight:800;text-transform:none;font-size:19px;margin-bottom:6px;}
+  .price-card .sub{color:var(--concrete);font-size:14px;margin-bottom:22px;}
+  .price-card .value{font-family:var(--ff-display);font-size:44px;margin-bottom:4px;color:var(--orange);}
+  .price-card .value span{font-size:16px;color:var(--concrete-light);font-family:var(--ff-body);}
+  .price-card ul{list-style:none;margin:22px 0 26px;flex:1;}
+  .price-card li{font-size:14.5px;padding:8px 0;border-top:1px solid var(--line);display:flex;gap:10px;transition:all .2s;}
+  .price-card li:hover{padding-left:8px;color:var(--ink);}
+  .price-card li:first-child{border-top:none;}
+  .price-card li::before{content:"—";color:var(--orange-dark);flex:none;}
+  .price-card .btn-wrap{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:auto;
+  }
+  .price-card .btn-wrap .btn{ width:100%; justify-content:center; }
+  .price-note{margin-top:20px;font-size:13.5px;color:var(--concrete);background:#FBF3EA;border:1px dashed #E7B98A;padding:14px 16px;}
+
+  /* ===== PROCESS ===== */
+  .process{display:flex;flex-direction:column;}
+  .step{
+    display:grid;grid-template-columns:90px 1fr;gap:22px;
+    padding:26px 0;border-top:1px solid var(--line);
+    transition:all .3s ease;
+    cursor:default;
+    position:relative;
+  }
+  .step::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--orange);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+  }
+  .step:hover::before { transform: scaleY(1); }
+  .step:hover{background:rgba(255,106,26,0.03);padding-left:16px;border-radius:4px;}
+  .step:last-child{border-bottom:1px solid var(--line);}
+  .step .idx{font-family:var(--ff-display);font-size:34px;color:var(--orange);transition:transform .3s ease;}
+  .step:hover .idx{transform:scale(1.1) rotate(-5deg);}
+  .step h3{font-family:var(--ff-body);font-weight:800;text-transform:none;font-size:17px;margin-bottom:6px;}
+  .step p{color:var(--concrete);font-size:14.5px;max-width:640px;}
+
+  /* ===== WHY US ===== */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start;}
+  .why-list{display:flex;flex-direction:column;gap:22px;}
+  .why-list .row{display:flex;gap:16px;transition:all .3s ease;cursor:default;}
+  .why-list .row:hover{transform:translateX(6px);}
+  .why-list .row .mark{
+    flex:none;width:34px;height:34px;border-radius:50%;background:var(--ink);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-family:var(--ff-display);font-size:16px;
+    transition:all .3s ease;
+  }
+  .why-list .row:hover .mark{transform:scale(1.1) rotate(10deg);background:var(--orange);color:#1B1000;}
+  .why-list h3{font-family:var(--ff-body);font-weight:800;text-transform:none;font-size:16px;margin-bottom:4px;}
+  .why-list p{font-size:14.5px;color:var(--concrete);}
+  .trust-panel{background:var(--ink);color:#fff;padding:34px;transition:all .3s;}
+  .trust-panel:hover{transform:scale(1.01);}
+  .trust-panel h3{font-family:var(--ff-display);font-size:20px;margin-bottom:18px;}
+  .trust-row{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid rgba(255,255,255,.12);font-size:14.5px;transition:all .2s;}
+  .trust-row:hover{padding-left:8px;background:rgba(255,255,255,0.03);border-radius:4px;}
+  .trust-row:first-of-type{border-top:none;}
+  .trust-row b{color:var(--orange);font-family:var(--ff-display);font-weight:500;}
+
+  /* ===== GALLERY ===== */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .gcard{
+    border:1px solid var(--line);background:var(--paper-panel);overflow:hidden;
+    transition:all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .gcard:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 12px 30px rgba(0,0,0,0.1);}
+  .gcard .ba{display:grid;grid-template-columns:1fr 1fr;height:150px;overflow:hidden;}
+  .gcard .ba div{
+    position:relative;display:flex;align-items:center;justify-content:center;
+    font-family:var(--ff-display);font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;transition:all .3s;
+  }
+  .gcard:hover .ba .before { background: #6a6f78; }
+  .gcard:hover .ba .after { background: var(--blue); }
+  .gcard .ba .before{background:repeating-linear-gradient(135deg,#8A8F97,#8A8F97 6px,#7B7F86 6px,#7B7F86 12px);}
+  .gcard .ba .after{background:linear-gradient(160deg,#2C6CB0,#1E4C7E);}
+  .gcard .ba .after::after {
+    content: '✓';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 20px;
+    opacity: 0.5;
+  }
+  .gcard .meta{padding:16px 18px;}
+  .gcard .meta h4{font-family:var(--ff-body);font-weight:800;font-size:15px;margin-bottom:4px;}
+  .gcard .meta span{font-size:13px;color:var(--concrete);}
+
+  /* ===== WORKS (НАШИ РАБОТЫ) ===== */
+  .works-section {
+    padding: 50px 0 70px;
+    background: var(--paper);
+  }
+  .works-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 30px;
+  }
+  .work-card {
+    background: var(--paper-panel);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+  }
+  .work-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+  }
+  .work-card .image-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+    background: var(--concrete-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .work-card .image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .work-card:hover .image-wrap img {
+    transform: scale(1.05);
+  }
+  .work-card .image-wrap .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--orange);
+    color: #fff;
+    padding: 3px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    border-radius: 4px;
+    font-family: var(--ff-display);
+    letter-spacing: 0.05em;
+    z-index: 10;
+  }
+  .work-card .image-wrap .badge.area {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    right: auto;
+    left: 10px;
+  }
+  .work-card .content {
+    padding: 18px 20px 22px;
+  }
+  .work-card .content h3 {
+    font-family: var(--ff-display);
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 4px;
+  }
+  .work-card .content .meta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--concrete-light);
+    margin-bottom: 8px;
+  }
+  .work-card .content .meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .work-card .content .description {
+    color: var(--concrete);
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .works-empty {
+    text-align: center;
+    padding: 60px 0;
+    color: var(--concrete-light);
+    grid-column: 1 / -1;
+  }
+  .works-empty .icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+  }
+  .works-empty h3 {
+    font-family: var(--ff-display);
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .works-loading {
+    text-align: center;
+    padding: 40px 0;
+    grid-column: 1 / -1;
+  }
+  .works-loading .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--line);
+    border-top-color: var(--orange);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  .works-view-all {
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  /* ===== COUNTER ===== */
+  .counter-section {
+    background: linear-gradient(135deg, var(--ink), #2a2a2a);
+    color: #fff;
+    padding: 60px 0;
+  }
+  .counter-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    text-align: center;
+  }
+  .counter-item .number {
+    font-family: var(--ff-display);
+    font-size: 48px;
+    color: var(--orange);
+    display: block;
+    font-weight: 700;
+  }
+  .counter-item .label {
+    font-size: 14px;
+    color: #9AA0A8;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-top: 4px;
+  }
+  .counter-item .number .plus { font-size: 30px; }
+
+  /* ===== FAQ ===== */
+  .faq-item{border-top:1px solid var(--line);}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:0;cursor:pointer;
+    padding:20px 4px;display:flex;justify-content:space-between;align-items:center;gap:20px;
+    font-family:var(--ff-body);font-weight:700;font-size:15.5px;color:var(--ink);
+    transition:all .2s;
+  }
+  .faq-q:hover{color:var(--orange);padding-left:8px;}
+  .faq-q .plus{font-family:var(--ff-display);font-size:20px;color:var(--orange);transition:transform .3s;flex:none;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .faq-a p{padding:0 4px 20px;font-size:14.5px;color:var(--concrete);max-width:680px;}
+
+  /* ===== CONTACT ===== */
+  .contact{background:var(--ink);color:#fff;}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+  .contact h2{color:#fff;}
+  .contact p.lead{color:#B7BCC3;margin:14px 0 26px;max-width:460px;}
+  .contact-info{display:flex;flex-direction:column;gap:16px;margin-top:10px;}
+  .contact-info .row{display:flex;gap:14px;font-size:15px;transition:all .2s;}
+  .contact-info .row:hover{transform:translateX(4px);}
+  .contact-info .row b{font-family:var(--ff-display);font-weight:500;letter-spacing:.02em;color:var(--orange);min-width:120px;}
+  .contact-info .row a{color:#fff;text-decoration:none;transition:color .2s;}
+  .contact-info .row a:hover{color:var(--orange);}
+  .social-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;}
+  .social-row a{
+    border:1px solid rgba(255,255,255,.25);padding:10px 18px;font-size:13.5px;
+    text-decoration:none;color:#fff;display:inline-flex;align-items:center;gap:8px;
+    transition:all .3s;
+    border-radius:2px;
+  }
+  .social-row a:hover{border-color:var(--orange);color:var(--orange);transform:translateY(-2px) scale(1.05);}
+  .social-row .social-call {
+    background: linear-gradient(135deg, #FF6A1A, #E85D0E);
+    border: none;
+    padding: 10px 22px;
+    font-size: 13.5px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .3s;
+    border-radius: 4px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(255, 106, 26, 0.3);
+  }
+  .social-row .social-call:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(255, 106, 26, 0.5);
+    background: linear-gradient(135deg, #FF7A2A, #E85D0E);
+  }
+  .social-row .social-call .call-icon {
+    display: inline-block;
+    animation: ring 2s ease-in-out infinite;
+    font-size: 18px;
+    line-height: 1;
+  }
+  .social-row .social-max {
+    background: linear-gradient(135deg, #6366F1, #8B5CF6, #A855F7);
+    border: none;
+    padding: 10px 22px;
+    font-size: 13.5px;
+    text-decoration: none;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .3s;
+    border-radius: 4px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+  }
+  .social-row .social-max:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 25px rgba(139, 92, 246, 0.5);
+  }
+  .social-row .social-max img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .social-row .social-wa {
+    border: 1px solid rgba(255,255,255,.25);
+    padding: 10px 18px;
+    font-size: 13.5px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .3s;
+    border-radius: 2px;
+  }
+  .social-row .social-wa:hover {
+    border-color: #25D366;
+    color: #25D366;
+    transform: translateY(-2px) scale(1.05);
+  }
+  .social-row .social-tg {
+    border: 1px solid rgba(255,255,255,.25);
+    padding: 10px 18px;
+    font-size: 13.5px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all .3s;
+    border-radius: 2px;
+  }
+  .social-row .social-tg:hover {
+    border-color: #229ED9;
+    color: #229ED9;
+    transform: translateY(-2px) scale(1.05);
+  }
+
+  form.lead-form{background:#23262B;padding:32px;border:1px solid rgba(255,255,255,.08);border-radius:4px;transition:all .3s;}
+  form.lead-form:hover{box-shadow:0 8px 30px rgba(0,0,0,0.3);}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;color:#9AA0A8;margin-bottom:6px;letter-spacing:.02em;}
+  .field input,.field textarea{
+    width:100%;background:#1B1E22;border:1px solid rgba(255,255,255,.14);color:#fff;
+    padding:13px 14px;font-family:var(--ff-body);font-size:14.5px;border-radius:var(--radius);
+    transition:all .3s;
+  }
+  .field input:focus,.field textarea:focus{
+    outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(255,106,26,0.2);
+    transform:scale(1.01);
+  }
+  .field textarea{resize:vertical;min-height:80px;}
+  .field input.error{border-color:#ff4444;}
+  .field .error-msg{color:#ff4444;font-size:12px;margin-top:4px;display:none;}
+  .field .error-msg.show{display:block;}
+  .form-consent{font-size:12px;color:#7D828A;margin-top:12px;}
+  .form-msg{margin-top:14px;font-size:14px;color:var(--orange);display:none;animation:slideDown 0.3s ease;}
+  .form-msg.show{display:block;}
+
+  /* ===== FOOTER ===== */
+  footer{background:#141619;color:#8B9097;padding:34px 0;font-size:13px;}
+  .footer-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center;}
+
+  /* ===== STICKY ===== */
+  .sticky-call{
+    position:fixed;left:0;right:0;bottom:0;z-index:200;
+    display:none;
+    background:var(--orange);color:#1B1000;
+    text-align:center;padding:15px;font-family:var(--ff-display);
+    text-transform:uppercase;letter-spacing:.04em;font-size:15px;text-decoration:none;
+    animation:slideDown 0.3s ease;
+  }
+  .sticky-call:hover{background:var(--orange-dark);}
+  @media(max-width:720px){ .sticky-call{display:block;} body{padding-bottom:56px;} }
+
+  /* ===== FLOATING BUTTONS ===== */
+  .fab-col {
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+    z-index: 190;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .fab{
+    width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:#fff;font-family:var(--ff-display);font-size:12px;text-decoration:none;
+    box-shadow:0 6px 16px rgba(0,0,0,.25);
+    transition:all .2s;
+    position:relative;
+    overflow:hidden;
+  }
+  .fab::after {
+    content: attr(data-label);
+    position: absolute;
+    right: 60px;
+    background: var(--ink);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all .3s;
+    white-space: nowrap;
+  }
+  .fab:hover::after { opacity: 1; right: 55px; }
+  .fab:hover{transform:scale(1.15) rotate(5deg);box-shadow:0 8px 24px rgba(0,0,0,.35);}
+  .fab.wa{background:#25D366;}
+  .fab.tg{background:#229ED9;}
+  .fab.max {
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: transparent;
+    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+  }
+  .fab.max img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .fab.max:hover img {
+    transform: scale(1.1);
+  }
+  .fab.max:hover {
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.6);
+    transform: scale(1.1);
+  }
+  .fab.phone{
+    background: linear-gradient(135deg, #FF6A1A, #E85D0E);
+    box-shadow: 0 6px 16px rgba(255, 106, 26, 0.4);
+    font-size: 20px;
+  }
+  .fab.phone:hover {
+    transform: scale(1.15) rotate(10deg);
+    box-shadow: 0 8px 24px rgba(255, 106, 26, 0.6);
+  }
+
+  /* ===== BACK TO TOP ===== */
+  .back-to-top {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 180;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition:all .3s;
+    box-shadow: 0 4px 12px rgba(255,106,26,0.3);
+  }
+  .back-to-top.visible { opacity: 1; visibility: visible; animation: bounceIn 0.5s ease; }
+  .back-to-top:hover { transform: translateY(-4px) scale(1.1); }
+
+  /* ===== PROGRESS BAR ===== */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--orange);
+    z-index: 1000;
+    transition: width 0.1s;
+  }
+
+  ::selection{background:var(--orange);color:#1B1000;}
+
+  /* ===== MODAL ===== */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;
+    display:none;align-items:center;justify-content:center;
+    padding:20px;
+    animation:fadeInUp 0.3s ease;
+  }
+  .modal-overlay.active{display:flex;}
+  .modal-box{
+    background:var(--paper-panel);max-width:440px;width:100%;padding:30px;
+    border-radius:var(--radius);position:relative;
+    animation:bounceIn 0.4s ease;
+  }
+  .modal-box .close{
+    position:absolute;top:12px;right:16px;font-size:24px;background:none;border:none;
+    cursor:pointer;color:var(--concrete);transition:all .2s;
+  }
+  .modal-box .close:hover{transform:rotate(90deg);color:var(--ink);}
+  .modal-box h3{font-family:var(--ff-display);font-size:20px;margin-bottom:12px;color:var(--ink);}
+  .modal-box .sub{color:var(--concrete);font-size:14px;margin-bottom:18px;}
+  .modal-box .field input{background:#f5f5f5;border:1px solid var(--line);color:var(--ink);}
+  .modal-box .field input:focus{outline:2px solid var(--orange);border-color:var(--orange);}
+  .modal-box .field input.error{border-color:#ff4444;}
+  .modal-box .field .error-msg{color:#ff4444;font-size:12px;margin-top:4px;display:none;}
+  .modal-box .field .error-msg.show{display:block;}
+  .modal-box .btn-primary{width:100%;}
+  .modal-box .form-consent{font-size:12px;color:var(--concrete-light);margin-top:12px;}
+  .modal-box .form-msg{margin-top:14px;font-size:14px;color:var(--orange-dark);display:none;}
+  .modal-box .form-msg.show{display:block;}
+  .modal-box .btn-phone{width:100%;margin-top:10px;}
+
+  /* ============================================================ */
+  /* ===== АДАПТАЦИЯ ===== */
+  /* ============================================================ */
+
+  @media(max-width: 1024px) {
+    .hero-grid { gap: 30px; }
+    .hero-stats { gap: 20px; }
+    .hero-stats div b { font-size: 22px; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .works-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media(max-width: 768px) {
+    section { padding: 50px 0; }
+    .wrap { padding: 0 16px; }
+    .nav { flex-wrap: wrap; gap: 10px; }
+    .nav-links { display: none; }
+    .nav-phone { display: none; }
+    .nav-cta { margin-left: auto; }
+    .hero { padding: 40px 0 0; }
+    .hero-grid { grid-template-columns: 1fr; padding-bottom: 36px; }
+    .hero h1 { font-size: 28px; }
+    .hero p.lead { font-size: 16px; }
+    .hero-actions .btn-wrap { flex-direction: column; width: 100%; }
+    .hero-actions .btn-wrap .btn { width: 100%; justify-content: center; }
+    .hero-stats { gap: 15px; }
+    .hero-stats div b { font-size: 20px; }
+    .hero-stats div span { font-size: 11px; }
+    .adv-grid { grid-template-columns: 1fr 1fr; }
+    .adv-item { padding: 20px 16px; }
+    .adv-item h3 { font-size: 15px; }
+    .adv-item p { font-size: 13px; }
+    .price-grid { grid-template-columns: 1fr; }
+    .price-card { padding: 24px 20px; }
+    .price-card .value { font-size: 36px; }
+    .step { grid-template-columns: 60px 1fr; gap: 14px; padding: 18px 0; }
+    .step .idx { font-size: 26px; }
+    .step h3 { font-size: 15px; }
+    .step p { font-size: 13px; }
+    .why-grid { grid-template-columns: 1fr; gap: 24px; }
+    .trust-panel { padding: 24px 20px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .gcard .ba { height: 120px; }
+    .gcard .meta { padding: 12px 14px; }
+    .gcard .meta h4 { font-size: 14px; }
+    .gcard .meta span { font-size: 12px; }
+    .works-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .work-card .image-wrap { height: 180px; }
+    .work-card .content { padding: 14px 16px 18px; }
+    .work-card .content h3 { font-size: 16px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+    .contact-info .row { flex-wrap: wrap; gap: 8px; }
+    .contact-info .row b { min-width: auto; width: 100%; }
+    .social-row { justify-content: center; }
+    .social-row a { padding: 8px 14px; font-size: 12px; }
+    form.lead-form { padding: 20px 16px; }
+    .counter-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .counter-item .number { font-size: 32px; }
+    .counter-item .label { font-size: 12px; }
+    .faq-q { font-size: 14px; padding: 14px 4px; }
+    .faq-a p { font-size: 13px; }
+    .footer-row { flex-direction: column; text-align: center; gap: 8px; font-size: 12px; }
+    .sticky-call { padding: 12px; font-size: 13px; }
+    .fab-col { right: 12px; bottom: 80px; gap: 8px; }
+    .fab { width: 44px; height: 44px; font-size: 14px; }
+    .fab.max img { width: 44px; height: 44px; }
+    .fab::after { display: none; }
+    .back-to-top { bottom: 80px; right: 12px; width: 40px; height: 40px; font-size: 18px; }
+  }
+
+  @media(max-width: 480px) {
+    .hero h1 { font-size: 24px; }
+    .hero-stats { gap: 10px; }
+    .hero-stats div { flex: 1 1 40%; }
+    .hero-stats div b { font-size: 18px; }
+    .adv-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .works-grid { grid-template-columns: 1fr; }
+    .work-card .image-wrap { height: 200px; }
+    .counter-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .counter-item .number { font-size: 28px; }
+    .btn { font-size: 13px; padding: 12px 20px; }
+    .btn-phone { font-size: 13px; padding: 12px 20px; }
+    .section-head h2 { font-size: 22px; }
+    .section-head p { font-size: 14px; }
+    .logo { font-size: 16px; }
+    .nav-cta .btn { padding: 8px 14px; font-size: 11px; }
+    .modal-box { padding: 20px 16px; }
+    .modal-box h3 { font-size: 18px; }
+    .level-card { padding: 18px 14px; }
+    .level-card .rows { flex-wrap: wrap; gap: 8px; }
+    .level-card .rows div { flex: 1 1 30%; }
+    .level-card .rows b { font-size: 16px; }
+    .field input, .field textarea { padding: 10px 12px; font-size: 13px; }
+    .fab-col { right: 8px; bottom: 75px; gap: 6px; }
+    .fab { width: 38px; height: 38px; font-size: 12px; }
+    .fab.max img { width: 38px; height: 38px; }
+    .fab::after { display: none; }
+    .back-to-top { bottom: 75px; right: 8px; width: 36px; height: 36px; font-size: 16px; }
+  }
+
+  @media(max-width: 360px) {
+    .hero h1 { font-size: 20px; }
+    .hero-stats div b { font-size: 16px; }
+    .counter-item .number { font-size: 24px; }
+    .price-card .value { font-size: 30px; }
+    .btn { font-size: 12px; padding: 10px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PROGRESS BAR ===== -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ===== PARTICLE CONTAINER ===== -->
+<div class="particles-container" id="particlesContainer"></div>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo" id="logoTop" title="Наверх">
+      <span class="logo-text">СТЯЖКА</span><span>31</span><span class="dot"></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#advantages">Преимущества</a></li>
+      <li><a href="#prices">Цены</a></li>
+      <li><a href="#process">Этапы работ</a></li>
+      <li><a href="#works">Наши работы</a></li>
+      <li><a href="#faq">Вопросы</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:+79192822197">📞 +7 (919) 282-21-97</a>
+      <a class="btn btn-primary" href="#contact" style="padding:11px 20px;font-size:13px;">Рассчитать</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow animate-on-scroll">Белгородский район · Работаем по договору</div>
+      <h1>Пол, ровный <em>с точностью до миллиметра</em>. По немецкой технологии.</h1>
+      <p class="lead animate-on-scroll delay-1">Полусухая стяжка для дома, квартиры и коммерческого объекта. Заливаем, уплотняем и контролируем каждый квадратный метр лазерным нивелиром — под ламинат, плитку, паркет и кварцвинил.</p>
+      <div class="hero-actions animate-on-scroll delay-2">
+        <div class="btn-wrap">
+          <a href="#contact" class="btn btn-primary btn-pulse">Рассчитать стоимость</a>
+          <button class="btn btn-outline-light" id="quickRequestBtn">Оставить заявку</button>
+        </div>
+        <a href="tel:+79192822197" class="btn btn-phone" style="border-color:rgba(255,255,255,.3);">📞 Позвонить сейчас</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item"><b>850 ₽</b><span>под ключ, м²</span></div>
+        <div class="stat-item"><b>450 ₽</b><span>работа, м²</span></div>
+        <div class="stat-item"><b>+-2 мм</b><span>отклонение по уровню</span></div>
+        <div class="stat-item"><b>Время</b><span>на объект обговаривается</span></div>
+      </div>
+    </div>
+    <div class="level-card">
+      <div class="cap"><span>Контроль лазерным нивелиром</span> <b><span class="live-dot"></span>ONLINE</b></div>
+      <div class="floor-viz">
+        <div class="bubble"><i></i></div>
+        <div class="plane"></div>
+      </div>
+      <div class="rows">
+        <div>Перепад высот<br><b>≤ 2 мм</b></div>
+        <div>Плотность стяжки<br><b>1800 кг/м³</b></div>
+        <div>Готовность к нагрузке<br><b>24 часа</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="laser-rule"></div>
+</section>
+
+<!-- ===== COUNTER SECTION ===== -->
+<section class="counter-section">
+  <div class="wrap">
+    <div class="counter-grid">
+      <div class="counter-item animate-on-scroll">
+        <span class="number" data-count="18">0<span class="plus">+</span></span>
+        <span class="label">Лет опыта</span>
+      </div>
+      <div class="counter-item animate-on-scroll delay-1">
+        <span class="number" data-count="100">0<span class="plus">%</span></span>
+        <span class="label">Довольных клиентов</span>
+      </div>
+      <div class="counter-item animate-on-scroll delay-2">
+        <span class="number" data-count="2">0</span>
+        <span class="label">Года гарантии</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="advantages">
+  <div class="wrap">
+    <div class="section-head animate-on-scroll">
+      <div class="eyebrow">Преимущества</div>
+      <h2>Почему полусухая стяжка, а не мокрая</h2>
+      <p>Минимум воды в составе — значит, минимум усадки, трещин и пустот под финишным покрытием.</p>
+    </div>
+    <div class="adv-grid">
+      <div class="adv-item animate-on-scroll delay-1"><div class="num">01</div><h3>Идеально ровное основание</h3><p>Под любое покрытие — ламинат, плитку, паркет, линолеум, кварцвинил.</p></div>
+      <div class="adv-item animate-on-scroll delay-2"><div class="num">02</div><h3>Высокая плотность и прочность</h3><p>Стяжка выдерживает бытовые и коммерческие нагрузки без деформации.</p></div>
+      <div class="adv-item animate-on-scroll delay-3"><div class="num">03</div><h3>Без пустот и трещин</h3><p>Полусухая смесь уплотняется механически — воздушных карманов не остаётся.</p></div>
+      <div class="adv-item animate-on-scroll delay-4"><div class="num">04</div><h3>По строительным нормам</h3><p>Толщина, армирование фиброволокном и уклоны — согласно СП и СНиП.</p></div>
+      <div class="adv-item animate-on-scroll delay-5"><div class="num">05</div><h3>Контроль лазерным нивелиром</h3><p>Проверяем плоскость на каждом этапе, а не только на приёмке.</p></div>
+      <div class="adv-item animate-on-scroll delay-6"><div class="num">06</div><h3>Быстро, чисто, по договору</h3><p>Пылеотведение на объекте, фиксированные сроки, закрывающие документы.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="prices" class="panel-alt">
+  <div class="wrap">
+    <div class="section-head animate-on-scroll">
+      <div class="eyebrow">Цены и тарифы</div>
+      <h2>Прозрачная стоимость за м²</h2>
+      <p>Считаем по фактической площади после замера. Минимальная стоимость заказа — 75 000 ₽.</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card featured animate-on-scroll delay-1">
+        <div class="tag">🔥 Популярно</div>
+        <h3>«Под ключ»</h3>
+        <div class="sub">Материал + работа</div>
+        <div class="value">850 ₽ <span>/ м²</span></div>
+        <ul>
+          <li>Цемент, песок и фиброволокно — закупаем и доставляем сами</li>
+          <li>Демпферная лента по периметру</li>
+          <li>Армирование фиброй, финишное затирание</li>
+          <li>Контроль лазерным нивелиром на всех этапах</li>
+          <li>Уборка и вывоз строительного мусора</li>
+        </ul>
+        <div class="btn-wrap">
+          <a href="#contact" class="btn btn-primary">Рассчитать под ключ</a>
+          <a href="tel:+79192822197" class="btn btn-phone">📞 Позвонить</a>
+        </div>
+      </div>
+      <div class="price-card animate-on-scroll delay-2">
+        <h3>Только работа</h3>
+        <div class="sub">Материал ваш — стяжку делаем мы</div>
+        <div class="value">450 ₽ <span>/ м²</span></div>
+        <ul>
+          <li>Приём и проверка вашего материала на объекте</li>
+          <li>Разметка уровня и подготовка основания</li>
+          <li>Укладка, уплотнение, шлифовка плоскости</li>
+          <li>Гарантия на выполненные работы</li>
+        </ul>
+        <div class="btn-wrap">
+          <a href="#contact" class="btn btn-outline">Рассчитать работу</a>
+          <a href="tel:+79192822197" class="btn btn-phone">📞 Позвонить</a>
+        </div>
+      </div>
+    </div>
+    <div class="price-note animate-on-scroll delay-3">Работаем только по Белгородскому району. Минимальная стоимость заказа — 75 000 ₽. Точная смета — после бесплатного замера.</div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="section-head animate-on-scroll">
+      <div class="eyebrow">Как мы работаем</div>
+      <h2>Пять шагов от заявки до сдачи пола</h2>
+    </div>
+    <div class="process">
+      <div class="step animate-on-scroll delay-1"><div class="idx">01</div><div><h3>Заявка и замер</h3><p>Приезжаем на объект, замеряем площадь, оцениваем состояние основания и перепады высот.</p></div></div>
+      <div class="step animate-on-scroll delay-2"><div class="idx">02</div><div><h3>Смета и договор</h3><p>Фиксируем объём работ, материалы, сроки и стоимость письменно — без устных договорённостей.</p></div></div>
+      <div class="step animate-on-scroll delay-3"><div class="idx">03</div><div><h3>Подготовка основания</h3><p>Очищаем черновой пол, укладываем демпферную ленту, при необходимости — гидроизоляцию.</p></div></div>
+      <div class="step animate-on-scroll delay-4"><div class="idx">04</div><div><h3>Заливка и уплотнение</h3><p>Замешиваем и подаём смесь, уплотняем, выравниваем по лазерному нивелиру.</p></div></div>
+      <div class="step animate-on-scroll delay-5"><div class="idx">05</div><div><h3>Приёмка и гарантия</h3><p>Проверяем плоскость на приборе вместе с вами, подписываем акт, выдаём гарантию.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== НАШИ РАБОТЫ ===== -->
+<section id="works" class="works-section panel-alt">
+  <div class="wrap">
+    <div class="section-head animate-on-scroll">
+      <div class="eyebrow">Наши работы</div>
+      <h2>Реальные объекты <em style="color:var(--orange);font-style:normal;">после работы</em></h2>
+      <p>Каждый проект — это ровный пол без трещин и усадки.</p>
+    </div>
+    
+    <div class="works-grid" id="worksGrid">
+      <div class="works-loading" id="loadingIndicator">
+        <div class="spinner"></div>
+        <p>Загрузка работ...</p>
+      </div>
+    </div>
+    
+    <div class="works-view-all">
+      <a href="works.html" class="btn btn-primary">Смотреть все работы →</a>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="section-head animate-on-scroll">
+      <div class="eyebrow">Частые вопросы</div>
+      <h2>FAQ</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item animate-on-scroll delay-1">
+        <button class="faq-q"><span>Через сколько можно ходить по стяжке?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Ходить по поверхности можно уже через 24 часа. Финишное покрытие укладываем после набора прочности — обычно через 3–5 дней, в зависимости от толщины слоя.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-2">
+        <button class="faq-q"><span>Чем полусухая стяжка отличается от мокрой?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>В смеси меньше воды, поэтому усадка и риск трещин значительно ниже. Смесь уплотняется механически, что даёт более плотное и прочное основание.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-3">
+        <button class="faq-q"><span>Вы работаете только в Белгородском районе?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Да, мы принимаем заказы только по Белгородскому району — это позволяет держать сроки и цены без наценки за дальний выезд.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-4">
+        <button class="faq-q"><span>Какая минимальная стоимость заказа?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Минимальная стоимость заказа — 75 000 ₽. Точную смету рассчитаем после бесплатного замера объекта.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-5">
+        <button class="faq-q"><span>Можно заказать только работу, если материал уже куплен?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Да, тариф «Только работа» — 450 ₽/м² — рассчитан именно на этот случай. Проверим материал на объекте перед началом заливки.</p></div>
+      </div>
+      <div class="faq-item animate-on-scroll delay-6">
+        <button class="faq-q"><span>Даёте ли вы гарантию?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Да, гарантия на выполненные работы — 2 года. Условия фиксируем в договоре до начала работ.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap contact-grid">
+    <div class="animate-on-scroll delay-1">
+      <div class="eyebrow">Контакты</div>
+      <h2>Рассчитаем стоимость за один звонок</h2>
+      <p class="lead">Оставьте заявку — перезвоним в течение 15 минут и назначим бесплатный замер.</p>
+      <div class="contact-info">
+        <div class="row"><b>Телефон</b><span><a href="tel:+79192822197">📞 +7 (919) 282-21-97</a></span></div>
+        <div class="row"><b>Почта</b><span><a href="mailto:info@styazhka31.ru">info@styazhka31.ru</a></span></div>
+        <div class="row"><b>Район работы</b><span>Белгородский район</span></div>
+        <div class="row"><b>Режим работы</b><span>Пн–Сб, 8:00–19:00</span></div>
+      </div>
+      <div class="social-row">
+        <a href="https://wa.me/79192822197" target="_blank" rel="noopener" class="social-wa">💬 WhatsApp</a>
+        <a href="https://t.me/styazhka31" target="_blank" rel="noopener" class="social-tg">💬 Telegram</a>
+        <a href="tel:+79192822197" class="social-call">
+          <span class="call-icon">📞</span> Позвонить
+        </a>
+        <a href="https://max.ru/u/f9LHodD0cOIu3Rwr9sLXuk_rmgKR-SPhem66IAhlnORdx5GpOtXTKEtmei8" target="_blank" rel="noopener" class="social-max">
+          <img src="max.jpg" alt="MAX"> MAX
+        </a>
+      </div>
+    </div>
+    <form class="lead-form animate-on-scroll delay-2" id="leadForm">
+      <div class="field">
+        <label for="name">Имя</label>
+        <input id="name" name="name" type="text" placeholder="Как к вам обращаться" required>
+      </div>
+      <div class="field">
+        <label for="phone">Телефон</label>
+        <input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" required>
+        <div class="error-msg" id="phoneError">Введите корректный номер телефона</div>
+      </div>
+      <div class="field">
+        <label for="message">Сообщение (опционально)</label>
+        <textarea id="message" name="message" placeholder="Покрытие, сроки, дополнительные пожелания"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Отправить заявку</button>
+      <div class="form-msg" id="formMsg">Заявка отправлена. Мы перезвоним в течение 15 минут.</div>
+      <div class="form-consent">Нажимая «Отправить заявку», вы соглашаетесь на обработку персональных данных.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Стяжка31 · Полусухая стяжка пола в Белгородском районе</span>
+    <span>Работаем по договору · <a href="tel:+79192822197" style="color:var(--orange);">📞 +7 (919) 282-21-97</a></span>
+  </div>
+</footer>
+
+<!-- Sticky call -->
+<a href="tel:+79192822197" class="sticky-call">📞 Позвонить: +7 (919) 282-21-97</a>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop" aria-label="Наверх">↑</button>
+
+<!-- Floating buttons -->
+<div class="fab-col">
+  <a class="fab phone" href="tel:+79192822197" aria-label="Позвонить" data-label="Позвонить">📞</a>
+  <a class="fab wa" href="https://wa.me/79192822197" target="_blank" rel="noopener" aria-label="WhatsApp" data-label="WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+  <a class="fab tg" href="https://t.me/styazhka31" target="_blank" rel="noopener" aria-label="Telegram" data-label="Telegram">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+  </a>
+  <a class="fab max" href="https://max.ru/u/f9LHodD0cOIu3Rwr9sLXuk_rmgKR-SPhem66IAhlnORdx5GpOtXTKEtmei8" target="_blank" rel="noopener" aria-label="MAX" data-label="MAX">
+    <img src="max.jpg" alt="MAX">
+  </a>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="quickModal">
+  <div class="modal-box">
+    <button class="close" id="quickModalClose">&times;</button>
+    <h3>Оставить заявку</h3>
+    <div class="sub">Мы перезвоним вам в течение 15 минут</div>
+    <form id="quickForm">
+      <div class="field">
+        <label for="quickName">Как к вам обращаться?</label>
+        <input id="quickName" name="name" type="text" placeholder="Иван" required>
+      </div>
+      <div class="field">
+        <label for="quickPhone">Номер телефона</label>
+        <input id="quickPhone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" required>
+        <div class="error-msg" id="quickPhoneError">Введите корректный номер телефона</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Отправить заявку</button>
+      <div class="form-msg" id="quickMsg">Заявка отправлена! Мы перезвоним вам в ближайшее время.</div>
+      <div class="form-consent">Нажимая «Отправить заявку», вы соглашаетесь на обработку персональных данных.</div>
+    </form>
+    <a href="tel:+79192822197" class="btn btn-phone" style="margin-top:10px;">📞 Позвонить сейчас</a>
+  </div>
+</div>
+
+<script>
+  // ============================================================
+  // ===== НАСТРОЙКА API =====
+  // ============================================================
+  // ⚠️ ДЛЯ ЛОКАЛЬНОГО ТЕСТА:
+  //const API_URL = 'http://localhost:5000/lead';
+  //const WORKS_URL = 'http://localhost:5000/works';
+  
+  // ⚠️ ДЛЯ СЕРВЕРА (раскомментируй и закомментируй строки выше):
+  const API_URL = 'https://Sasharazvali.pythonanywhere.com/lead';
+  const WORKS_URL = 'https://Sasharazvali.pythonanywhere.com/works';
+  
+  // ============================================================
+  // ===== ОТПРАВКА ЗАЯВКИ =====
+  // ============================================================
+  async function sendLead(data) {
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Ошибка отправки:', error);
+      return null;
+    }
+  }
+
+  // ============================================================
+  // ===== ЗАГРУЗКА РАБОТ =====
+  // ============================================================
+  async function loadWorks() {
+    const grid = document.getElementById('worksGrid');
+    const loading = document.getElementById('loadingIndicator');
+    
+    try {
+      const response = await fetch(WORKS_URL);
+      const data = await response.json();
+      
+      console.log('📦 Загружено работ:', data.works ? data.works.length : 0);
+      
+      if (data.works && data.works.length > 0) {
+        // Берем последние 3 добавленные работы (сортируем по id - чем больше id, тем новее)
+        const sortedWorks = [...data.works].sort((a, b) => (b.id || 0) - (a.id || 0));
+        const works = sortedWorks.slice(0, 3);
+        
+        loading.style.display = 'none';
+        
+        grid.innerHTML = works.map((work, index) => {
+          // Берем первое фото из массива photos или используем photo/filename
+          let photoUrl = '';
+          if (work.photos && work.photos.length > 0) {
+            photoUrl = work.photos[0];
+          } else if (work.photo) {
+            photoUrl = work.photo;
+          } else if (work.filename) {
+            photoUrl = work.filename;
+          }
+          
+          // Определяем базовый URL для фото
+          const baseUrl = API_URL.replace('/lead', '');
+          
+          // Если фото начинается с /photos/ или /
+          if (photoUrl.startsWith('/photos/') || photoUrl.startsWith('/')) {
+            photoUrl = baseUrl + photoUrl;
+          }
+          // Если фото не начинается с http, добавляем базовый URL
+          else if (!photoUrl.startsWith('http') && photoUrl) {
+            photoUrl = baseUrl + '/photos/' + photoUrl;
+          }
+          
+          const areaText = work.area ? `${work.area} м²` : '';
+          
+          return `
+            <div class="work-card animate-on-scroll" style="animation-delay: ${(index * 0.15)}s">
+              <div class="image-wrap">
+                ${photoUrl ? `<img src="${photoUrl}" alt="${work.title || 'Работа'}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:40px;background:var(--concrete-light);\\'>🖼️</div><div style=\\'position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:#fff;padding:4px 12px;border-radius:4px;font-size:11px;z-index:10;\\'>Фото не загрузилось</div>'">` : `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:40px;background:var(--concrete-light);">🖼️</div>`}
+                ${areaText ? `<div class="badge area">📐 ${areaText}</div>` : ''}
+                <div class="badge">${work.category || 'Объект'}</div>
+              </div>
+              <div class="content">
+                <h3>${work.title || 'Без названия'}</h3>
+                ${work.description ? `<p class="description">${work.description}</p>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        document.querySelectorAll('.work-card').forEach(el => {
+          el.classList.add('visible');
+        });
+        
+      } else {
+        loading.innerHTML = `
+          <div style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--concrete-light);">
+            <div style="font-size:40px;margin-bottom:12px;">🖼️</div>
+            <h3 style="font-family:var(--ff-display);font-size:20px;color:var(--ink);">Работ пока нет</h3>
+            <p>Добавьте работы через Telegram или VK бота</p>
+          </div>
+        `;
+      }
+      
+    } catch (error) {
+      console.error('❌ Ошибка загрузки работ:', error);
+      loading.innerHTML = `
+        <div style="grid-column:1/-1;text-align:center;padding:40px 0;color:#dc3545;">
+          <div style="font-size:40px;margin-bottom:12px;">⚠️</div>
+          <h3 style="font-family:var(--ff-display);font-size:20px;">Ошибка загрузки</h3>
+          <p>Попробуйте обновить страницу</p>
+        </div>
+      `;
+    }
+  }
+
+  // ============================================================
+  // ===== ЛОГОТИП - ПРОКРУТКА НАВЕРХ =====
+  // ============================================================
+  const logo = document.getElementById('logoTop');
+  logo.addEventListener('click', function(e) {
+    e.preventDefault();
+    this.classList.add('clicked');
+    setTimeout(() => this.classList.remove('clicked'), 600);
+    
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    
+    createParticles(e.clientX || window.innerWidth / 2, e.clientY || 50);
+  });
+
+  // ============================================================
+  // ===== ЧАСТИЦЫ =====
+  // ============================================================
+  function createParticles(x, y) {
+    const container = document.getElementById('particlesContainer');
+    const colors = ['#FF6A1A', '#FF8C42', '#FFB074', '#FFD4A8'];
+    
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      
+      const size = Math.random() * 6 + 2;
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 150 + 50;
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance - 50;
+      
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = (x + dx) + 'px';
+      particle.style.top = (y + dy) + 'px';
+      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+      particle.style.setProperty('--tx', (Math.random() - 0.5) * 200 + 'px');
+      particle.style.setProperty('--ty', (Math.random() - 0.5) * 200 - 100 + 'px');
+      particle.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+      
+      container.appendChild(particle);
+      
+      setTimeout(() => particle.remove(), 3000);
+    }
+  }
+
+  // ============================================================
+  // ===== FAQ =====
+  // ============================================================
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o => {
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ============================================================
+  // ===== ANIMATE ON SCROLL =====
+  // ============================================================
+  const animateOnScroll = () => {
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.top < windowHeight - 50) {
+        el.classList.add('visible');
+      }
+    });
+  };
+  window.addEventListener('scroll', animateOnScroll);
+  window.addEventListener('load', animateOnScroll);
+
+  // ============================================================
+  // ===== COUNTER ANIMATION =====
+  // ============================================================
+  const counters = document.querySelectorAll('.number');
+  let countersAnimated = false;
+
+  const animateCounters = () => {
+    if (countersAnimated) return;
+    const trigger = document.querySelector('.counter-section');
+    if (!trigger) return;
+    const rect = trigger.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 50) {
+      countersAnimated = true;
+      counters.forEach(counter => {
+        const target = parseInt(counter.dataset.count);
+        let current = 0;
+        const increment = target / 50;
+        const interval = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(interval);
+          }
+          if (target === 100) {
+            counter.innerHTML = Math.floor(current) + '<span class="plus">%</span>';
+          } else {
+            counter.innerHTML = Math.floor(current) + '<span class="plus">+</span>';
+          }
+        }, 40);
+      });
+    }
+  };
+  window.addEventListener('scroll', animateCounters);
+  window.addEventListener('load', animateCounters);
+
+  // ============================================================
+  // ===== SCROLL PROGRESS BAR =====
+  // ============================================================
+  const progressBar = document.getElementById('scrollProgress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    progressBar.style.width = progress + '%';
+  });
+
+  // ============================================================
+  // ===== BACK TO TOP =====
+  // ============================================================
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  });
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ============================================================
+  // ===== ВАЛИДАЦИЯ ТЕЛЕФОНА =====
+  // ============================================================
+  function validatePhone(phone) {
+    const clean = phone.replace(/[\s\-\(\)]/g, '');
+    const pattern = /^(\+7|8)\d{10}$/;
+    return pattern.test(clean);
+  }
+
+  function formatPhoneDisplay(input) {
+    let value = input.value.replace(/\D/g, '');
+    if (value.startsWith('8') && value.length > 1) {
+      value = '+7' + value.slice(1);
+    } else if (value.startsWith('7') && value.length > 1) {
+      value = '+' + value;
+    } else if (!value.startsWith('+') && value.length > 0) {
+      value = '+' + value;
+    }
+    let formatted = value;
+    if (value.startsWith('+7')) {
+      let nums = value.slice(2);
+      if (nums.length > 0) formatted = '+7 (' + nums.slice(0, 3);
+      if (nums.length > 3) formatted += ') ' + nums.slice(3, 6);
+      if (nums.length > 6) formatted += '-' + nums.slice(6, 8);
+      if (nums.length > 8) formatted += '-' + nums.slice(8, 10);
+    }
+    input.value = formatted;
+  }
+
+  function showPhoneError(input, errorEl) {
+    input.classList.add('error');
+    errorEl.classList.add('show');
+  }
+
+  function hidePhoneError(input, errorEl) {
+    input.classList.remove('error');
+    errorEl.classList.remove('show');
+  }
+
+  // ============================================================
+  // ===== ОСНОВНАЯ ФОРМА =====
+  // ============================================================
+  const mainForm = document.getElementById('leadForm');
+  const mainMsg = document.getElementById('formMsg');
+  const mainPhone = document.getElementById('phone');
+  const mainPhoneError = document.getElementById('phoneError');
+
+  mainPhone.addEventListener('input', function() {
+    formatPhoneDisplay(this);
+    if (this.value.length >= 16) {
+      hidePhoneError(this, mainPhoneError);
+    }
+  });
+
+  mainForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const phoneValue = mainPhone.value.replace(/[\s\-\(\)]/g, '');
+    if (!validatePhone(phoneValue)) {
+      showPhoneError(mainPhone, mainPhoneError);
+      return;
+    }
+    hidePhoneError(mainPhone, mainPhoneError);
+    
+    const data = {
+      name: this.querySelector('[name="name"]').value,
+      phone: phoneValue,
+      message: this.querySelector('[name="message"]').value || ''
+    };
+    
+    mainMsg.textContent = '⏳ Отправка заявки...';
+    mainMsg.classList.add('show');
+    
+    const result = await sendLead(data);
+    
+    if (result && result.status === 'success') {
+      mainMsg.textContent = '✅ Заявка отправлена! Мы перезвоним вам в течение 15 минут.';
+    } else {
+      mainMsg.textContent = '⚠️ Ошибка отправки. Попробуйте позже или позвоните по телефону.';
+    }
+    
+    this.reset();
+    mainPhone.value = '';
+    setTimeout(() => {
+      mainMsg.classList.remove('show');
+    }, 8000);
+  });
+
+  // ============================================================
+  // ===== БЫСТРАЯ ФОРМА =====
+  // ============================================================
+  const quickModal = document.getElementById('quickModal');
+  const quickBtn = document.getElementById('quickRequestBtn');
+  const quickClose = document.getElementById('quickModalClose');
+  const quickForm = document.getElementById('quickForm');
+  const quickMsg = document.getElementById('quickMsg');
+  const quickPhone = document.getElementById('quickPhone');
+  const quickPhoneError = document.getElementById('quickPhoneError');
+
+  quickBtn.addEventListener('click', () => quickModal.classList.add('active'));
+  quickClose.addEventListener('click', () => quickModal.classList.remove('active'));
+  quickModal.addEventListener('click', (e) => {
+    if (e.target === quickModal) quickModal.classList.remove('active');
+  });
+
+  quickPhone.addEventListener('input', function() {
+    formatPhoneDisplay(this);
+    if (this.value.length >= 16) {
+      hidePhoneError(this, quickPhoneError);
+    }
+  });
+
+  quickForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const phoneValue = quickPhone.value.replace(/[\s\-\(\)]/g, '');
+    if (!validatePhone(phoneValue)) {
+      showPhoneError(quickPhone, quickPhoneError);
+      return;
+    }
+    hidePhoneError(quickPhone, quickPhoneError);
+    
+    const data = {
+      name: this.querySelector('[name="name"]').value,
+      phone: phoneValue,
+      message: 'Быстрая заявка с сайта'
+    };
+    
+    quickMsg.textContent = '⏳ Отправка...';
+    quickMsg.classList.add('show');
+    
+    const result = await sendLead(data);
+    
+    if (result && result.status === 'success') {
+      quickMsg.textContent = '✅ Заявка отправлена! Мы перезвоним вам в ближайшее время.';
+    } else {
+      quickMsg.textContent = '⚠️ Ошибка отправки. Попробуйте позже.';
+    }
+    
+    this.reset();
+    quickPhone.value = '';
+    setTimeout(() => {
+      quickMsg.classList.remove('show');
+      quickModal.classList.remove('active');
+    }, 4000);
+  });
+
+  // ============================================================
+  // ===== СТАТИСТИКА ПОСЕЩАЕМОСТИ =====
+  // ============================================================
+  (function trackVisit() {
+    if (sessionStorage.getItem('visitTracked')) return;
+    sessionStorage.setItem('visitTracked', '1');
+    
+    const data = {
+      name: 'Посетитель сайта',
+      phone: '—',
+      message: `👁️ Новый посетитель\n🌐 ${document.title}\n🔗 ${window.location.href}`
+    };
+    
+    setTimeout(() => {
+      sendLead(data).catch(() => {});
+    }, 3000);
+  })();
+
+  // ============================================================
+  // ===== ЗАГРУЗКА РАБОТ ПРИ СТАРТЕ =====
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', loadWorks);
+  
+  // ============================================================
+  // ===== АВТООБНОВЛЕНИЕ РАБОТ КАЖДЫЕ 30 СЕКУНД =====
+  // ============================================================
+  setInterval(loadWorks, 30000);
 </script>
 
 </body>
