@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши работы — Полусухая стяжка пола в Белгородском районе</title>
+    <meta name="description" content="Фото работ по полусухой стяжке пола в Белгородском районе. Реальные объекты — квартиры, дома, коммерческие помещения.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --ink: #1B1E22;
+            --concrete: #4B4F56;
+            --concrete-light: #8A8F97;
+            --paper: #F1EFEA;
+            --paper-panel: #FFFFFF;
+            --orange: #FF6A1A;
+            --orange-dark: #D6540E;
+            --line: #DAD6CE;
+            --radius: 4px;
+            --ff-display: 'Oswald', sans-serif;
+            --ff-body: 'Manrope', sans-serif;
+        }
+        
+        body {
+            font-family: var(--ff-body);
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        header {
+            background: var(--ink);
+            color: #fff;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        
+        .logo {
+            font-family: var(--ff-display);
+            font-size: 22px;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .logo span {
+            color: var(--orange);
+        }
+        
+        .logo .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--orange);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .back-link {
+            color: var(--concrete-light);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            color: var(--orange);
+            transform: translateX(-4px);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .hero-works {
+            background: linear-gradient(135deg, var(--ink), #2a2a2a);
+            color: #fff;
+            padding: 60px 0 50px;
+            text-align: center;
+        }
+        
+        .hero-works h1 {
+            font-family: var(--ff-display);
+            font-size: clamp(36px, 5vw, 56px);
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 12px;
+        }
+        
+        .hero-works h1 em {
+            font-style: normal;
+            color: var(--orange);
+        }
+        
+        .hero-works p {
+            color: #B7BCC3;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .hero-works .count-badge {
+            display: inline-block;
+            background: rgba(255, 106, 26, 0.15);
+            color: var(--orange);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 16px;
+            border: 1px solid rgba(255, 106, 26, 0.2);
+        }
+        
+        .works-section {
+            padding: 50px 0 70px;
+        }
+        
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+        
+        .work-card {
+            background: var(--paper-panel);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .work-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* ===== ГАЛЕРЕЯ В КАРТОЧКЕ ===== */
+        .work-card .gallery-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+            background: var(--concrete-light);
+        }
+        
+        .work-card .gallery-wrap .slides {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .work-card .gallery-wrap .slides img {
+            min-width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        
+        .work-card .gallery-wrap .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+        }
+        
+        .work-card:hover .gallery-wrap .nav-btn {
+            opacity: 1;
+        }
+        
+        .work-card .gallery-wrap .nav-btn:hover {
+            background: var(--orange);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .work-card .gallery-wrap .nav-btn.prev {
+            left: 10px;
+        }
+        
+        .work-card .gallery-wrap .nav-btn.next {
+            right: 10px;
+        }
+        
+        .work-card .gallery-wrap .dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        
+        .work-card .gallery-wrap .dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .work-card .gallery-wrap .dots span.active {
+            background: var(--orange);
+            transform: scale(1.2);
+        }
+        
+        .work-card .gallery-wrap .photo-count {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+        
+        .work-card .gallery-wrap .badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--orange);
+            color: #fff;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+            font-family: var(--ff-display);
+            letter-spacing: 0.05em;
+            z-index: 10;
+        }
+        
+        .work-card .gallery-wrap .badge.area {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            left: auto;
+            right: 12px;
+            top: auto;
+            bottom: 50px;
+        }
+        
+        .work-card .content {
+            padding: 20px 22px 24px;
+        }
+        
+        .work-card .content h3 {
+            font-family: var(--ff-display);
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            margin-bottom: 6px;
+        }
+        
+        .work-card .content .meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: var(--concrete-light);
+            margin-bottom: 10px;
+        }
+        
+        .work-card .content .meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .work-card .content .description {
+            color: var(--concrete);
+            font-size: 14.5px;
+            line-height: 1.5;
+        }
+        
+        /* ===== МОДАЛЬНОЕ ОКНО ДЛЯ ПРОСМОТРА ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            cursor: pointer;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-overlay .modal-content {
+            max-width: 90vw;
+            max-height: 90vh;
+            position: relative;
+            cursor: default;
+        }
+        
+        .modal-overlay .modal-content img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        
+        .modal-overlay .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 32px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .modal-overlay .close-modal:hover {
+            transform: rotate(90deg);
+        }
+        
+        .modal-overlay .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-overlay .modal-nav:hover {
+            background: var(--orange);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .modal-overlay .modal-nav.prev {
+            left: -60px;
+        }
+        
+        .modal-overlay .modal-nav.next {
+            right: -60px;
+        }
+        
+        .modal-overlay .modal-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px 0;
+            grid-column: 1 / -1;
+        }
+        
+        .loading .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--line);
+            border-top-color: var(--orange);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--concrete-light);
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state .icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        
+        .empty-state h3 {
+            font-family: var(--ff-display);
+            font-size: 24px;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+        
+        .skeleton {
+            background: var(--paper-panel);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        
+        .skeleton .image {
+            height: 280px;
+            background: linear-gradient(90deg, var(--line) 25%, #e8e5df 50%, var(--line) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        .skeleton .text {
+            padding: 20px 22px;
+        }
+        
+        .skeleton .text .line {
+            height: 14px;
+            background: var(--line);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--line) 25%, #e8e5df 50%, var(--line) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        .skeleton .text .line.short {
+            width: 60%;
+        }
+        
+        .skeleton .text .line.medium {
+            width: 80%;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .pagination button {
+            padding: 8px 16px;
+            border: 2px solid var(--line);
+            background: transparent;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-family: var(--ff-body);
+            font-weight: 500;
+            transition: all 0.3s;
+            color: var(--concrete);
+        }
+        
+        .pagination button:hover {
+            border-color: var(--orange);
+            color: var(--ink);
+        }
+        
+        .pagination button.active {
+            background: var(--orange);
+            border-color: var(--orange);
+            color: #fff;
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        footer {
+            background: #141619;
+            color: #8B9097;
+            padding: 30px 0;
+            font-size: 13px;
+            text-align: center;
+        }
+        
+        footer a {
+            color: var(--orange);
+        }
+        
+        .debug-info {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 12px 16px;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #495057;
+            display: none;
+        }
+        
+        .debug-info.show {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .works-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .hero-works {
+                padding: 40px 0 30px;
+            }
+            
+            .work-card .gallery-wrap {
+                height: 220px;
+            }
+            
+            .modal-overlay .modal-nav.prev {
+                left: 10px;
+            }
+            
+            .modal-overlay .modal-nav.next {
+                right: 10px;
+            }
+            
+            .modal-overlay .modal-nav {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .work-card .gallery-wrap {
+                height: 240px;
+            }
+            
+            .hero-works h1 {
+                font-size: 28px;
+            }
+            
+            .modal-overlay .modal-content img {
+                max-width: 95vw;
+                max-height: 80vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="wrap header-wrap">
+            <div class="logo">
+                <span class="logo-text">СТЯЖКА</span><span>31</span><span class="dot"></span>
+            </div>
+            <a href="index.html" class="back-link">← Вернуться на главную</a>
+        </div>
+    </header>
+
+    <section class="hero-works">
+        <div class="wrap">
+            <h1>Наши <em>работы</em></h1>
+            <p>Реальные объекты — от квартир до коммерческих помещений. Каждый проект — это ровный пол без трещин и усадки.</p>
+            <div class="count-badge" id="worksCount">Загружаем...</div>
+        </div>
+    </section>
+
+    <section class="works-section">
+        <div class="wrap">
+
+            <div class="debug-info" id="debugInfo"></div>
+
+            <div class="works-grid" id="worksGrid">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Загрузка работ...</p>
+                </div>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+
+        </div>
+    </section>
+
+    <!-- Модальное окно для просмотра фото -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="close-modal" id="modalClose">✕</button>
+            <button class="modal-nav prev" id="modalPrev">‹</button>
+            <img id="modalImage" src="" alt="Фото">
+            <button class="modal-nav next" id="modalNext">›</button>
+            <div class="modal-counter" id="modalCounter">1 / 1</div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="wrap">
+            <p>© 2026 Стяжка31 · Полусухая стяжка пола в Белгородском районе</p>
+            <p style="margin-top:4px;">Работаем по договору · <a href="tel:+79192822197">📞 +7 (919) 282-21-97</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // ===== НАСТРОЙКА =====
+        // ============================================================
+        
+        // ⚠️ ТУТ МЕНЯЕШЬ ОДНУ СТРОЧКУ:
+        // Для локального теста: http://localhost:5000
+        // Для сервера: https://Sasharazvali.pythonanywhere.com
+        
+        const BASE_URL = 'http://localhost:5000';
+        const WORKS_API_URL = BASE_URL + '/works';
+        const PHOTOS_URL = BASE_URL + '/photos/';
+        const ITEMS_PER_PAGE = 9;
+        
+        // ============================================================
+        // ===== ПЕРЕМЕННЫЕ =====
+        // ============================================================
+        
+        let allWorks = [];
+        let filteredWorks = [];
+        let currentPage = 1;
+        
+        // Для модального окна
+        let modalImages = [];
+        let modalCurrentIndex = 0;
+        
+        // ============================================================
+        // ===== DOM ЭЛЕМЕНТЫ =====
+        // ============================================================
+        
+        const grid = document.getElementById('worksGrid');
+        const pagination = document.getElementById('pagination');
+        const countBadge = document.getElementById('worksCount');
+        const debugInfo = document.getElementById('debugInfo');
+        
+        // Модальное окно
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalImage = document.getElementById('modalImage');
+        const modalCounter = document.getElementById('modalCounter');
+        const modalClose = document.getElementById('modalClose');
+        const modalPrev = document.getElementById('modalPrev');
+        const modalNext = document.getElementById('modalNext');
+        
+        // ============================================================
+        // ===== ФУНКЦИИ =====
+        // ============================================================
+        
+        function showDebug(message) {
+            debugInfo.textContent = '[DEBUG] ' + message;
+            debugInfo.classList.add('show');
+            console.log('[DEBUG]', message);
+        }
+        
+        function getImageSrc(photo) {
+            if (!photo) return '';
+            
+            // Если это массив фото
+            if (Array.isArray(photo)) {
+                return photo.map(p => getImageSrc(p));
+            }
+            
+            let url = photo;
+            
+            if (url.startsWith('/')) {
+                url = BASE_URL + url;
+            } else if (!url.startsWith('http')) {
+                url = PHOTOS_URL + url;
+            }
+            
+            return url;
+        }
+        
+        function getPhotos(work) {
+            // Проверяем разные форматы хранения фото
+            if (work.photos && Array.isArray(work.photos)) {
+                return work.photos.map(p => getImageSrc(p));
+            }
+            if (work.photo && Array.isArray(work.photo)) {
+                return work.photo.map(p => getImageSrc(p));
+            }
+            if (work.photos && typeof work.photos === 'string') {
+                return [getImageSrc(work.photos)];
+            }
+            if (work.photo && typeof work.photo === 'string') {
+                return [getImageSrc(work.photo)];
+            }
+            if (work.filename) {
+                return [getImageSrc(work.filename)];
+            }
+            return [];
+        }
+        
+        async function loadWorks() {
+            try {
+                
+                const response = await fetch(WORKS_API_URL);
+                const data = await response.json();
+                
+                console.log('Данные с сервера:', data);
+                
+                if (data.works && Array.isArray(data.works)) {
+                    allWorks = data.works;
+                    return true;
+                } else {
+                    allWorks = [];
+                    return false;
+                }
+            } catch (error) {
+                console.error('Ошибка:', error);
+                showDebug('Ошибка: ' + error.message);
+                allWorks = [];
+                return false;
+            }
+        }
+        
+        function filterWorks() {
+            filteredWorks = allWorks.slice();
+            
+            // Сортируем по id (новые сверху)
+            filteredWorks.sort((a, b) => {
+                const idA = a.id || a.created_at || 0;
+                const idB = b.id || b.created_at || 0;
+                return idB - idA;
+            });
+            
+            currentPage = 1;
+        }
+        
+        function openModal(images, index) {
+            modalImages = images;
+            modalCurrentIndex = index;
+            showModalImage();
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        function showModalImage() {
+            if (modalImages.length === 0) return;
+            modalImage.src = modalImages[modalCurrentIndex];
+            modalCounter.textContent = `${modalCurrentIndex + 1} / ${modalImages.length}`;
+        }
+        
+        function nextImage() {
+            if (modalCurrentIndex < modalImages.length - 1) {
+                modalCurrentIndex++;
+                showModalImage();
+            }
+        }
+        
+        function prevImage() {
+            if (modalCurrentIndex > 0) {
+                modalCurrentIndex--;
+                showModalImage();
+            }
+        }
+        
+        function renderWorks() {
+            const start = (currentPage - 1) * ITEMS_PER_PAGE;
+            const end = start + ITEMS_PER_PAGE;
+            const pageItems = filteredWorks.slice(start, end);
+            
+            if (filteredWorks.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">🖼️</div>
+                        <h3>Работ пока нет</h3>
+                        <p>Добавьте работы через Telegram бота</p>
+                        <p style="margin-top:8px;font-size:13px;color:var(--concrete-light);">
+                            Отправьте фото с подписью или ссылку на фото
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = pageItems.map((work, index) => {
+                const photos = getPhotos(work);
+                const areaText = work.area ? `${work.area} м²` : '';
+                
+                // Генерируем слайдер
+                let slidesHtml = '';
+                let dotsHtml = '';
+                
+                if (photos.length > 0) {
+                    slidesHtml = photos.map((src, i) => {
+                        return `<img src="${src}" alt="${work.title || 'Фото'}" loading="lazy" onclick="openModal(photos_${index}, ${i})">`;
+                    }).join('');
+                    
+                    dotsHtml = photos.map((_, i) => {
+                        return `<span class="${i === 0 ? 'active' : ''}" onclick="goToSlide_${index}(${i})"></span>`;
+                    }).join('');
+                } else {
+                    slidesHtml = `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#fff;font-size:40px;background:var(--concrete-light);min-width:100%;">🖼️</div>`;
+                }
+                
+                // Сохраняем photos в глобальную переменную для доступа из onclick
+                const photosVarName = `photos_${index}`;
+                window[photosVarName] = photos;
+                
+                // Функция для перехода по слайдам
+                window[`goToSlide_${index}`] = function(i) {
+                    const dots = document.querySelectorAll(`#gallery-${index} .dots span`);
+                    const slides = document.querySelector(`#gallery-${index} .slides`);
+                    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+                    slides.style.transform = `translateX(-${i * 100}%)`;
+                };
+                
+                // Функция для навигации
+                window[`nextSlide_${index}`] = function() {
+                    const dots = document.querySelectorAll(`#gallery-${index} .dots span`);
+                    let active = 0;
+                    dots.forEach((d, i) => { if (d.classList.contains('active')) active = i; });
+                    const next = (active + 1) % dots.length;
+                    window[`goToSlide_${index}`](next);
+                };
+                
+                window[`prevSlide_${index}`] = function() {
+                    const dots = document.querySelectorAll(`#gallery-${index} .dots span`);
+                    let active = 0;
+                    dots.forEach((d, i) => { if (d.classList.contains('active')) active = i; });
+                    const prev = (active - 1 + dots.length) % dots.length;
+                    window[`goToSlide_${index}`](prev);
+                };
+                
+                return `
+                    <div class="work-card" style="animation-delay: ${(index * 0.08)}s">
+                        <div class="gallery-wrap" id="gallery-${index}">
+                            <div class="slides">
+                                ${slidesHtml}
+                            </div>
+                            ${photos.length > 1 ? `
+                                <button class="nav-btn prev" onclick="event.stopPropagation(); prevSlide_${index}()">‹</button>
+                                <button class="nav-btn next" onclick="event.stopPropagation(); nextSlide_${index}()">›</button>
+                                <div class="dots">${dotsHtml}</div>
+                                <div class="photo-count">📸 ${photos.length}</div>
+                            ` : ''}
+                            ${areaText ? `<div class="badge area">📐 ${areaText}</div>` : ''}
+                            <div class="badge">${work.category || 'Объект'}</div>
+                        </div>
+                        <div class="content">
+                            <h3>${work.title || 'Без названия'}</h3>
+                            ${work.description ? `<p class="description">${work.description}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredWorks.length / ITEMS_PER_PAGE);
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+            
+            let html = '';
+            html += `<button onclick="goToPage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>←</button>`;
+            
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 1) {
+                    html += `<button onclick="goToPage(${i})" class="${i === currentPage ? 'active' : ''}">${i}</button>`;
+                } else if (i === currentPage - 2 || i === currentPage + 2) {
+                    html += `<button disabled>…</button>`;
+                }
+            }
+            
+            html += `<button onclick="goToPage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>→</button>`;
+            
+            pagination.innerHTML = html;
+        }
+        
+        function goToPage(page) {
+            const totalPages = Math.ceil(filteredWorks.length / ITEMS_PER_PAGE);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderWorks();
+            renderPagination();
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function updateCount() {
+            const total = filteredWorks.length;
+            countBadge.textContent = total > 0 ? `📸 ${total} работ` : 'Нет работ';
+        }
+        
+        async function init() {
+            grid.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Загрузка работ...</p>
+                </div>
+            `;
+            
+            const success = await loadWorks();
+            
+            if (success && allWorks.length > 0) {
+                filterWorks();
+                renderWorks();
+                renderPagination();
+                updateCount();
+            } else {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">🖼️</div>
+                        <h3>Работ пока нет</h3>
+                        <p>Добавьте работы через Telegram бота</p>
+                        <p style="margin-top:8px;font-size:13px;color:var(--concrete-light);">
+                            Отправьте фото с подписью или ссылку на фото
+                        </p>
+                    </div>
+                `;
+                countBadge.textContent = '0 работ';
+                pagination.innerHTML = '';
+            }
+        }
+        
+        // ============================================================
+        // ===== ОБРАБОТЧИКИ МОДАЛЬНОГО ОКНА =====
+        // ============================================================
+        
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+        modalPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            prevImage();
+        });
+        modalNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            nextImage();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (!modalOverlay.classList.contains('active')) return;
+            if (e.key === 'Escape') closeModal();
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+        });
+        
+        // ============================================================
+        // ===== АВТООБНОВЛЕНИЕ КАЖДЫЕ 30 СЕКУНД =====
+        // ============================================================
+        
+        let autoUpdateInterval = null;
+        
+        function startAutoUpdate() {
+            if (autoUpdateInterval) clearInterval(autoUpdateInterval);
+            autoUpdateInterval = setInterval(() => {
+                init();
+            }, 30000);
+        }
+        
+        // ============================================================
+        // ===== ЗАПУСК =====
+        // ============================================================
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            init();
+            startAutoUpdate();
+        });
+        
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                init();
+            }
+        });
+    </script>
+
+</body>
+</html>
